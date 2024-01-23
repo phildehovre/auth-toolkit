@@ -3,7 +3,7 @@
 import { LoginSchema } from "@/schemas"
 import * as z from "zod"
 import { signIn } from "@/auth"
-import {  DEFAULT_REDIRECT_PATH } from "@/routes"
+import {  DEFAULT_LOGIN_REDIRECT } from "@/routes"
 import { AuthError } from "next-auth"
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
@@ -17,7 +17,12 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     const {email, password} = validatedFields.data
 
     try {
-        await signIn("credentials", {email, password, redirectTo: DEFAULT_REDIRECT_PATH})
+        /* 
+        This is a custom sign in function that is provided by next-auth for Sever-side authentication.
+        The client-side authentication is handled in the social.tsx component of this project.
+        It takes in a provider and an object with the credentials.
+        */
+        await signIn("credentials", {email, password, redirectTo: DEFAULT_LOGIN_REDIRECT})
     } catch  (error) {
         if (error instanceof AuthError) {
             switch(error.type) {
@@ -29,6 +34,4 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         }
         throw error
     }
-
-
 }

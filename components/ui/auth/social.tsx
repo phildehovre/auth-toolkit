@@ -3,17 +3,36 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Button } from "../button";
+import { signIn } from "next-auth/react";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const Socials = () => {
-  const onClick = () => {
-    console.log("Social button click");
+  /* 
+  This signIn function is different from the server side auth in login.tsx
+  We import from next-auth/react instead of auth file and authConfig file.
+  The parameters are roughly similar:(provider, options object)
+  */
+  const onClick = (provider: "google" | "github") => {
+    signIn(provider, {
+      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+    });
   };
   return (
     <div className="flex items-center w-full gap-x-2">
-      <Button variant="outline" size="lg" className="w-full" onClick={onClick}>
+      <Button
+        variant="outline"
+        size="lg"
+        className="w-full"
+        onClick={() => onClick("google")}
+      >
         <FcGoogle className="h-5 w-5" />
       </Button>
-      <Button variant="outline" size="lg" className="w-full" onClick={onClick}>
+      <Button
+        variant="outline"
+        size="lg"
+        className="w-full"
+        onClick={() => onClick("github")}
+      >
         <FaGithub className="h-5 w-5" />
       </Button>
     </div>

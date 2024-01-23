@@ -33,4 +33,4 @@ export const apiAuthRoutePrefix = "/api/auth"
  * @type {string}
 */
 
-export const DEFAULT_REDIRECT_PATH = "/settings"
+export const DEFAULT_LOGIN_REDIRECT = "/settings"

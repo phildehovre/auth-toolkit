@@ -13,6 +13,7 @@ const SettingsPage = async () => {
           await signOut();
         }}
       >
+        <p>{JSON.stringify(session)}</p>
         <Button type="submit">Sign out</Button>
       </form>
     </div>
